@@ -1,30 +1,52 @@
+// src/app/journal/page.tsx
+
 import { Metadata } from 'next';
 import Link from 'next/link';
-import { getSortedPostsData } from '@/lib/journal';
+import { getJournalEntries } from '@/lib/journal';
 
-export const metadata: Metadata = { title: 'The Coderon Journal' };
+export const metadata: Metadata = {
+  title: 'The Coderon Journal',
+  description: 'Insights, tutorials, and deep dives into software development, AI, and digital strategy from the team at Coderon.',
+};
 
 export default function JournalPage() {
-  const articles = getSortedPostsData();
+  const posts = getJournalEntries();
+
   return (
-    <div className="c-page-container">
-      <header className="c-page-header">
-        <h1>From the Drum</h1>
-        <p>A collection of insights from my journey.</p>
-      </header>
-      <main>
-        <div className="c-article-list">
-          {articles.map(({ slug, title, excerpt }) => (
-            <Link key={slug} href={`/journal/${slug}`} className="c-article-list__item">
-              <div>
-                <h2 className="c-article-list__title">{title}</h2>
-                <p className="c-article-list__excerpt">{excerpt}</p>
-              </div>
-              <span className="c-article-list__read-more">Read Article →</span>
-            </Link>
-          ))}
+    <main className="journal-page">
+      <section className="journal-hero">
+        <div className="container">
+          <h1>The Coderon Journal</h1>
+          <p>Insights, tutorials, and our thoughts on the digital frontier.</p>
         </div>
-      </main>
-    </div>
+      </section>
+
+      <section className="journal-list">
+        <div className="container">
+          <div className="journal-grid">
+            {posts.map(({ slug, title, date, description }) => (
+              <Link key={slug} href={`/journal/${slug}`} className="journal-card">
+                <article>
+                  <div className="card-content">
+                    <p className="card-meta">
+                      <time dateTime={date as string}>
+                        {new Date(date as string).toLocaleDateString('en-US', {
+                          year: 'numeric',
+                          month: 'long',
+                          day: 'numeric',
+                        })}
+                      </time>
+                    </p>
+                    <h2 className="card-title">{title as string}</h2>
+                    <p className="card-description">{description as string}</p>
+                    <span className="card-read-more">Read Article →</span>
+                  </div>
+                </article>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+    </main>
   );
 }
