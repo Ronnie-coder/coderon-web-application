@@ -1,0 +1,39 @@
+// src/styles/_impact-page.scss (REPLACE ENTIRE FILE)
+@use 'variables' as *;
+@use 'mixins' as *;
+
+// Layout remains the same
+.c-page-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: $spacing-xl $spacing-lg;
+}
+.c-page-header {
+  text-align: center;
+  margin-bottom: $spacing-xl;
+  padding-bottom: $spacing-lg;
+  border-bottom: 1px solid var(--border-color);
+  h1 { font-size: 3rem; color: var(--text-primary); margin-bottom: $spacing-sm; @media (max-width: 768px) { font-size: 2.5rem; }}
+  p { font-size: 1.2rem; color: var(--text-secondary); max-width: 600px; margin-left: auto; margin-right: auto; }
+}
+
+// Card styles remain the same
+.c-project-card {
+  background-color: var(--surface-color);
+  border-radius: $border-radius-md;
+  border: 1px solid var(--border-color);
+  overflow: hidden;
+  margin-bottom: $spacing-xl;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+  &:hover { box-shadow: var(--shadow-strong); transform: translateY(-4px); }
+}
+.c-project-card__image { img { width: 100%; height: auto; display: block; }}
+.c-project-card__content { padding: $spacing-lg; }
+.c-project-card__client { color: var(--primary-gold); font-weight: 600; margin-bottom: $spacing-sm; }
+.c-project-card__title { font-size: 1.8rem; color: var(--text-primary); margin-bottom: $spacing-md; }
+.c-project-card__description { color: var(--text-secondary); margin: 0 0 $spacing-lg 0; }
+.c-project-card__tags { display: flex; flex-wrap: wrap; gap: $spacing-sm; margin-bottom: $spacing-lg; }
+.c-project-card__tag { background-color: rgba(var(--primary-gold-rgb), 0.1); color: var(--primary-gold); padding: $spacing-xs $spacing-sm; border-radius: 4px; font-size: 0.8rem; font-weight: 500; }
+
+// --- PURGED: The conflicting '.c-project-card__cta' selector has been removed. ---
+// The component using this style must now use className="cta-button" on its Link tag.

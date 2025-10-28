@@ -1,0 +1,50 @@
+@use 'variables' as *;
+
+@mixin cta-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: $spacing-sm;
+  background-color: var(--primary-gold);
+  color: var(--text-on-gold);
+  padding: 0.8rem 1.5rem; // Increased padding for better visual
+  border-radius: $border-radius-md;
+  font-weight: 600;
+  text-decoration: none;
+  border: 1px solid var(--primary-gold);
+  cursor: pointer;
+  text-align: center;
+  white-space: nowrap; // Prevents text from wrapping
+  transition: all 0.25s ease;
+
+  &:hover {
+    background-color: var(--primary-gold-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(var(--primary-gold-rgb), 0.2);
+  }
+}
+
+@mixin cta-button-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: $spacing-sm;
+  background-color: transparent;
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  padding: 0.8rem 1.5rem;
+  border-radius: $border-radius-md;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  text-align: center;
+  white-space: nowrap;
+  transition: all 0.25s ease;
+
+  &:hover {
+    background-color: var(--surface-color);
+    border-color: var(--primary-gold);
+    color: var(--primary-gold);
+    transform: translateY(-2px);
+  }
+}
