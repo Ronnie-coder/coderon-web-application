@@ -1,62 +1,61 @@
 // src/app/journal/[slug]/page.tsx
-
-import { getJournalEntryBySlug, getJournalEntries } from '@/lib/journal';
-import { MDXRemote } from 'next-mdx-remote/rsc';
+import { getJournalEntries } from '@/lib/journal';
+import { notFound } from 'next/navigation';
+import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { Metadata } from 'next';
-import { notFound } from 'next/navigation';
+import React from 'react';
 
-// This type definition remains correct.
-type PageProps = {
-  params: {
-    slug: string;
-  };
-};
-
-// THE DEFINITIVE FIX IS HERE: We destructure `slug` directly out of `params`
-// in the function signature itself. This forces the resolution of the parameter.
-export async function generateMetadata({ params: { slug } }: PageProps): Promise<Metadata> {
-  const post = await getJournalEntryBySlug(slug); // Now passing the resolved `slug`
-  if (!post) return { title: 'Post Not Found' };
-  return {
-    title: post.frontmatter.title as string,
-    description: post.frontmatter.description as string,
-  };
-}
+type PageProps = { params: Promise<{ slug: string }> };
 
 export async function generateStaticParams() {
   const posts = getJournalEntries();
   return posts.map((post) => ({ slug: post.slug }));
 }
 
-// APPLYING THE SAME FIX HERE for the main component.
-export default async function JournalArticlePage({ params: { slug } }: PageProps) {
-  const post = await getJournalEntryBySlug(slug); // Now passing the resolved `slug`
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const postMeta = getJournalEntries().find(p => p.slug === slug);
+  if (!postMeta) return { title: 'Post Not Found' };
+  return {
+    title: postMeta.title,
+    description: postMeta.description,
+  };
+}
 
-  if (!post) {
+export default function JournalArticlePage({ params }: PageProps) {
+  // CORRECTIVE ACTION: React.use() is the correct pattern here for non-async components.
+  const { slug } = React.use(params);
+
+  const Content = dynamic(() => import(`../(posts)/${slug}.mdx`).catch(() => notFound()));
+  const postMeta = getJournalEntries().find(p => p.slug === slug);
+
+  if (!postMeta) {
     notFound();
   }
-
-  const { frontmatter, content } = post;
 
   return (
     <article className="c-article-page">
       <div className="c-page-container">
         <header className="c-page-header">
-          <h1>{frontmatter.title as string}</h1>
+          <h1>{postMeta.title}</h1>
           <p className="article-meta">
-            Published on {new Date(frontmatter.date as string).toLocaleDateString('en-US', {
-              year: 'numeric',
-              month: 'long',
-              day: 'numeric',
-            })}
+            <span>
+              Published on {new Date(postMeta.date).toLocaleDateString('en-US', {
+                year: 'numeric', month: 'long', day: 'numeric',
+              })}
+            </span>
+            {/* UI REFINEMENT: Display reading time */}
+            <span className="reading-time"> • {postMeta.readingTime} min read</span>
           </p>
         </header>
+
         <main className="c-article-content">
-          <MDXRemote source={content} />
+          <Content />
         </main>
+
         <footer className="c-article-footer">
-          <Link href="/journal">← Back to All Articles</Link>
+          <Link href="/journal/">← Back to All Articles</Link>
         </footer>
       </div>
     </article>

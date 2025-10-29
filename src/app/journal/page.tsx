@@ -1,5 +1,4 @@
 // src/app/journal/page.tsx
-
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { getJournalEntries } from '@/lib/journal';
@@ -24,8 +23,9 @@ export default function JournalPage() {
       <section className="journal-list">
         <div className="container">
           <div className="journal-grid">
-            {posts.map(({ slug, title, date, description }) => (
-              <Link key={slug} href={`/journal/${slug}`} className="journal-card">
+            {/* --- ENHANCEMENT: Destructured readingTime --- */}
+            {posts.map(({ slug, title, date, description, readingTime }) => (
+              <Link key={slug} href={`/journal/${slug}/`} className="journal-card">
                 <article>
                   <div className="card-content">
                     <p className="card-meta">
@@ -36,6 +36,8 @@ export default function JournalPage() {
                           day: 'numeric',
                         })}
                       </time>
+                      {/* --- ENHANCEMENT: Display reading time --- */}
+                      <span className="card-reading-time"> • {readingTime} min read</span>
                     </p>
                     <h2 className="card-title">{title as string}</h2>
                     <p className="card-description">{description as string}</p>
