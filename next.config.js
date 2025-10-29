@@ -1,6 +1,5 @@
-// next.config.cjs
+// next.config.js
 
-// CORRECTIVE ACTION: Revert from 'import' to 'require' for CommonJS
 const createMDX = require('@next/mdx');
 
 /** @type {import('next').NextConfig} */
@@ -17,5 +16,4 @@ const withMDX = createMDX({
   // Add MDX options here, if needed.
 });
 
-// CORRECTIVE ACTION: Revert from 'export default' to 'module.exports' for CommonJS
 module.exports = withMDX(nextConfig);
