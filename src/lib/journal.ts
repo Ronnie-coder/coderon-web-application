@@ -10,7 +10,7 @@ export type PostFrontmatter = {
   title: string;
   date: string;
   description: string;
-  readingTime: number; // --- ENHANCEMENT: Added readingTime property ---
+  readingTime: number;
   [key: string]: any;
 };
 
@@ -26,16 +26,18 @@ export function getJournalEntries(): PostFrontmatter[] {
         const fullPath = path.join(postsDirectory, fileName);
         const fileContents = fs.readFileSync(fullPath, 'utf8');
         
-        // --- ENHANCEMENT: Calculate reading time from post content ---
         const { data, content } = matter(fileContents);
         const words = content.trim().split(/\s+/).length;
-        const readingTime = Math.ceil(words / 200); // Assumes 200 WPM reading speed
+        const readingTime = Math.ceil(words / 200);
 
+        // --- THE DEFINITIVE FIX: Assemble the full object and then cast it ---
+        // This explicitly tells TypeScript that the combination of these properties
+        // satisfies the PostFrontmatter type.
         return {
           slug,
           readingTime,
-          ...(data as Omit<PostFrontmatter, 'slug' | 'readingTime'>),
-        };
+          ...data,
+        } as PostFrontmatter;
       })
       .filter((post): post is PostFrontmatter => !!post);
 
