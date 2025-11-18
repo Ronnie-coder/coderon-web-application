@@ -1,0 +1,11 @@
+@use 'mixins' as *;
+
+// This establishes the global .cta-button class, proven to work.
+.cta-button {
+  @include cta-button;
+}
+
+// This establishes the global .cta-button-secondary class.
+.cta-button-secondary {
+  @include cta-button-secondary;
+}

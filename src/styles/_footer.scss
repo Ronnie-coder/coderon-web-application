@@ -1,0 +1,153 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+.c-footer {
+  padding: $spacing-md $spacing-lg;
+  // --- UPDATED: Uses CSS variables ---
+  border-top: 1px solid var(--border-color);
+  background-color: var(--surface-color);
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  position: relative;
+
+  &.has-fab {
+    padding-right: calc(60px + #{$spacing-lg});
+    @media (max-width: 768px) {
+      padding-right: $spacing-lg;
+      padding-bottom: calc(60px + #{$spacing-lg});
+    }
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: $spacing-lg;
+    width: 100%;
+    max-width: $container-max-width;
+    margin: 0 auto;
+  }
+
+  &__social {
+    display: flex;
+    align-items: center;
+    gap: $spacing-lg;
+    a {
+      // --- UPDATED: Uses CSS variables ---
+      color: var(--text-secondary);
+      font-size: 1.5rem;
+      transition: color 0.3s ease, transform 0.3s ease;
+      &:hover {
+        color: var(--primary-gold);
+        transform: translateY(-2px);
+      }
+    }
+  }
+
+  &__links {
+    display: flex;
+    gap: $spacing-md;
+    justify-content: center;
+    a {
+      // --- UPDATED: Uses CSS variables ---
+      color: var(--text-secondary);
+      font-size: 0.8rem;
+      text-decoration: none;
+      &:hover {
+        color: var(--text-primary);
+        text-decoration: underline;
+      }
+    }
+  }
+
+  &__verification {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin: $spacing-sm 0;
+    a {
+      display: inline-block;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      &:hover {
+        opacity: 0.9;
+        transform: scale(1.03);
+      }
+    }
+  }
+
+  &__bottom-bar {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: $spacing-md;
+    padding-top: $spacing-md;
+    // --- UPDATED: Uses CSS variables ---
+    border-top: 1px solid var(--border-color);
+  }
+
+  &__legal-info {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: $spacing-md;
+    justify-content: center;
+  }
+
+  &__clock {
+    font-family: var(--font-roboto-mono), monospace;
+    font-size: 1rem;
+    // --- UPDATED: Uses CSS variables ---
+    color: var(--text-primary);
+    background-color: var(--background-color);
+    padding: $spacing-xs $spacing-sm;
+    border-radius: $border-radius-md; // Using consistent radius
+    border: 1px solid var(--border-color);
+    letter-spacing: 1.5px;
+    flex-shrink: 0;
+  }
+
+  @media (max-width: 768px) {
+    &__content {
+      gap: $spacing-xl;
+    }
+    &__bottom-bar {
+      flex-direction: column-reverse;
+      justify-content: center;
+      gap: $spacing-md;
+    }
+  }
+}
+
+.c-back-to-top {
+  position: fixed;
+  bottom: $spacing-lg;
+  right: $spacing-lg;
+  z-index: 999;
+  @include cta-button;
+  width: 50px;
+  height: 50px;
+  padding: 0;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  // --- UPDATED: Uses new theme-aware shadow variable ---
+  box-shadow: var(--shadow-fab);
+
+  &:hover {
+    transform: translateY(-3px) scale(1.05);
+    // Note: The background-color hover is already handled by the cta-button mixin.
+  }
+
+  @media (max-width: 768px) {
+    left: 50%;
+    transform: translateX(-50%);
+
+    &:hover {
+      transform: translateX(-50%) translateY(-3px) scale(1.05);
+    }
+  }
+}
