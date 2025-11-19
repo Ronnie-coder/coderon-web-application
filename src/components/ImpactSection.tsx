@@ -1,4 +1,4 @@
-// src/components/ImpactSection.tsx (REPLACE ENTIRE FILE)
+// src/components/ImpactSection.tsx
 "use client";
 
 import { useRef } from 'react';
@@ -50,7 +50,7 @@ const ImpactSection = ({ project }: ImpactSectionProps) => {
           <h3>Featured Project: {project.client}</h3>
           <h2>{project.title}</h2>
           <p>{project.description}</p>
-          {/* --- BUTTON FIX: Applying simple, global class name --- */}
+          {/* --- WORKAROUND REMOVED: Reverted to the correct, simple markup --- */}
           <Link href={project.liveUrl} className="cta-button" target="_blank" rel="noopener noreferrer">
             View Live Site
           </Link>

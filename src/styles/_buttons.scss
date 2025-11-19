@@ -1,11 +1,16 @@
+// src/styles/_buttons.scss
 @use 'mixins' as *;
 
-// This establishes the global .cta-button class, proven to work.
 .cta-button {
   @include cta-button;
+  // --- GLOBAL FIX: Apply color directly to the button class itself ---
+  color: var(--button-text-color);
+  font-weight: 600;
 }
 
-// This establishes the global .cta-button-secondary class.
 .cta-button-secondary {
   @include cta-button-secondary;
+  // --- GLOBAL FIX: Apply color directly to the button class itself ---
+  color: var(--button-text-color);
+  font-weight: 600;
 }

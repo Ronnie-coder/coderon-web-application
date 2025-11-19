@@ -1,5 +1,6 @@
 // src/app/privacy-policy/page.tsx
 import { Metadata } from 'next';
+import Link from 'next/link'; // Import Link for mailto and tel links
 
 export const metadata: Metadata = {
   title: "Privacy Policy | Coderon",
@@ -7,7 +8,7 @@ export const metadata: Metadata = {
 };
 
 export default function PrivacyPolicyPage() {
-  const lastUpdated = "October 28, 2025"; // Use a real, current date
+  const lastUpdated = "November 19, 2025"; // Updated to a realistic date
 
   return (
     <main className="l-legal-page">
@@ -36,9 +37,13 @@ export default function PrivacyPolicyPage() {
         <h2>5. Your Rights Under POPIA</h2>
         <p>You have the right to access, correct, or request the deletion of your personal data held by us. To exercise these rights, please contact our Information Officer at the address below.</p>
         
+        {/* --- REFINED: Contact Information --- */}
         <h2>6. Contact Us</h2>
         <p>For any questions regarding this policy, please contact us:</p>
-        <p><strong>Email:</strong> ronnie@coderon.co.za</p>
+        <ul>
+            <li><strong>Email:</strong> <a href="mailto:info@coderon.co.za">info@coderon.co.za</a></li>
+            <li><strong>Phone:</strong> <a href="tel:+27678184898">+27 67 818 4898</a></li>
+        </ul>
       </div>
     </main>
   );

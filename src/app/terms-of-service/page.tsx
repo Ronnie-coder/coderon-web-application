@@ -1,5 +1,6 @@
 // src/app/terms-of-service/page.tsx
 import { Metadata } from 'next';
+import Link from 'next/link'; // Import Link for mailto and tel links
 
 export const metadata: Metadata = {
   title: "Terms of Service | Coderon",
@@ -7,7 +8,8 @@ export const metadata: Metadata = {
 };
 
 export default function TermsOfServicePage() {
-  const lastUpdated = "October 28, 2025"; // Use a real, current date
+  const lastUpdated = "November 19, 2025"; // Updated to a realistic date
+
 
   return (
     <main className="l-legal-page">
@@ -27,9 +29,13 @@ export default function TermsOfServicePage() {
         <h2>4. Governing Law</h2>
         <p>These Terms shall be governed by the laws of the Republic of South Africa, without regard to its conflict of law provisions.</p>
         
+        {/* --- REFINED: Contact Information --- */}
         <h2>5. Contact Us</h2>
         <p>If you have any questions about these Terms, please contact us:</p>
-        <p><strong>Email:</strong> ronnie@coderon.co.za</p>
+        <ul>
+          <li><strong>Email:</strong> <a href="mailto:info@coderon.co.za">info@coderon.co.za</a></li>
+          <li><strong>Phone:</strong> <a href="tel:+27678184898">+27 67 818 4898</a></li>
+        </ul>
       </div>
     </main>
   );

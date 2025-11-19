@@ -27,6 +27,7 @@
 @use 'the-drum-section';
 @use 'journal-page';
 @use 'article-page';
+@use 'quotepilot-cta';
 
 // 3. Global utilities and overrides. This MUST come after component styles.
 // --- CRITICAL FIX: Moved to the end to win the specificity war ---
